@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Employee>
+
+@{ 
+    ViewBag.Title = "Employees List";
+}
+       
+    <div class="card-deck">
+        @foreach (var employee in Model)
+        {
+            var photoPath = "~/images/" + (employee.PhotoPath ?? "noimage.jpg");
+            <div class="card m-3" style="min-width:18rem;max-width:30.5%">
+                <div class="card-header">
+                    <h3>@employee.Name</h3>
+                </div>
+                <img class="card-img-top" src="@photoPath"
+                     asp-append-version="true"/>
+                <div class="card-footer text-center">
+                    <form asp-action="DeleteEmployee" asp-route-id="@employee.Id" method="post">
+                        <span id="confirmDeleteSpan_@employee.Id" style="display:none">
+                            <span>Are you sure you want to delete?</span>
+                            <button type="submit" class="btn btn-danger">Yes</button>
+                            <a href="#" onclick="confirmDelete('@employee.Id' , false)" class="btn btn-primary">No</a>
+                        </span>
+                        <span id="deleteSpan_@employee.Id">
+                            <a href="/home/details/@employee.EncryptedId" class="btn btn-primary m-1">View</a>
+                            <a href="/home/edit/@employee.Id" class="btn btn-primary m-1">Edit</a>
+                            <a href="#" onclick="confirmDelete('@employee.Id' , true)" class="btn btn-danger m-1">Delete</a>
+                        </span>
+                        </form>
+                </div>
+            </div>
+        }
+
+        </div>
+        
+                   
+
+@section Scripts{ 
+    <script src="~/js/CustomJavaScript.js" asp-append-version="true"></script>
+}
+  
