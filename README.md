@@ -1,2 +1,2 @@
 # EmployeeManagement
-Employee Management App using DotNet Core 3.1
+Employees Management App using .Net Core 3.1
